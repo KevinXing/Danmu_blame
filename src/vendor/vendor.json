@@ -1,0 +1,12 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "yVe7CpN40HbYMohj9M4HFHfnJCk=",
+			"path": "github.com/samsarahq/go/oops",
+			"revision": "c046b0801eb2cce61be49fa8ee8b38eda4a9fc54",
+			"revisionTime": "2018-07-10T17:52:00Z"
+		}
+	]
+}
