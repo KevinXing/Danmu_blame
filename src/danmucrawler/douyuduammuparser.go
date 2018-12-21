@@ -10,20 +10,20 @@ const (
 )
 
 type DouyuChatMessage struct {
-	groupId       int
-	roomId        int
-	userId        int64
-	nickName      string
-	text          string
-	danmuId       int64
-	level         int
-	gift          int
-	color         int
-	clientType    int
-	nobleLevel    int
-	badgeNickName string
-	badgeLevel    int
-	badgeRoomId   int
+	GroupId       int
+	RoomId        int
+	UserId        int64
+	NickName      string
+	Text          string
+	DanmuId       int64
+	Level         int
+	Gift          int
+	Color         int
+	ClientType    int
+	NobleLevel    int
+	BadgeNickName string
+	BadgeLevel    int
+	BadgeRoomId   int
 }
 
 func (ddc *DouyuDanmuCrawler) messageParser(message string) {
