@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"helpers"
+	"log"
 	"net"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 )
 
 const (
-	douyuDanmuServer  = "openbarrage.douyutv.com:8601"
+	douyuDanmuServer  = "119.96.201.28:8601"
 	writeDeadline     = time.Minute
 	readDeadline      = time.Minute
 	heartbeatInterval = time.Second * 45
@@ -72,6 +73,7 @@ func (ddc *DouyuDanmuCrawler) init() error {
 		return oops.Wrapf(err, "net.Dial")
 	}
 	ddc.conn = conn
+	log.Println(ddc.conn)
 
 	// login message
 	loginMessage := fmt.Sprintf("type@=loginreq/roomid@=%s/", ddc.RoomId)
@@ -116,8 +118,10 @@ func (ddc *DouyuDanmuCrawler) read(ctx context.Context) error {
 }
 
 func (ddc *DouyuDanmuCrawler) close() {
-	ddc.send("type@=logout/")
-	ddc.conn.Close()
+	if ddc.conn != nil {
+		ddc.send("type@=logout/")
+		ddc.conn.Close()
+	}
 }
 
 // Run implement interface Crawler

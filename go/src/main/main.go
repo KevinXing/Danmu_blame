@@ -10,7 +10,7 @@ func main() {
 	ctx := context.Background()
 
 	crawlerManager := danmucrawler.NewCrawlerManager(ctx)
-	testCrawler1, err := danmucrawler.NewDouyuDanmuCrawler("74960")
+	testCrawler1, err := danmucrawler.NewDouyuDanmuCrawler("9999")
 	if err != nil {
 		panic(err)
 	}
