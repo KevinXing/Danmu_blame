@@ -195,10 +195,10 @@
 			"revisionTime": "2018-12-20T23:17:20Z"
 		},
 		{
-			"checksumSHA1": "g0orEerUpOz9BShqSXbvWQv8jFY=",
+			"checksumSHA1": "vVo/zQdT92WZjtjsBk1Jdvz+4Gw=",
 			"path": "github.com/aws/aws-sdk-go/service/dynamodb",
-			"revision": "5329a6f8b39a73343eb0b922316441a666ce60de",
-			"revisionTime": "2018-12-20T23:17:20Z"
+			"revision": "017282153268d9d6a619ba49bd582dc24726c609",
+			"revisionTime": "2019-05-30T23:47:20Z"
 		},
 		{
 			"checksumSHA1": "35a/vm5R/P68l/hQD55GqviO6bg=",
