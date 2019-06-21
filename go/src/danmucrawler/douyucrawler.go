@@ -14,7 +14,8 @@ import (
 )
 
 const (
-	douyuDanmuServer  = "119.96.201.28:8601"
+	//douyuDanmuServer  = "119.96.201.28:8601"
+	douyuDanmuServer  = "47.254.90.45:12601"
 	writeDeadline     = time.Minute
 	readDeadline      = time.Minute
 	heartbeatInterval = time.Second * 45
