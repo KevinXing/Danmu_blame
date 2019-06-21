@@ -1,2 +1,3 @@
-/.cache/
-/pkg
+go/.cache/
+go/pkg
+.cache/
