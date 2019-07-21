@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	//douyuDanmuServer  = "119.96.201.28:8601"
-	douyuDanmuServer  = "47.254.90.45:12601"
+	douyuDanmuServer = "119.96.201.28:8601"
+	//douyuDanmuServer  = "47.254.90.45:12601"
 	writeDeadline     = time.Minute
 	readDeadline      = time.Minute
 	heartbeatInterval = time.Second * 45
@@ -25,10 +25,11 @@ const (
 type DouyuDanmuCrawler struct {
 	conn   net.Conn
 	RoomId string
+	model  *messageModel
 }
 
-func NewDouyuDanmuCrawler(roomId string) (DouyuDanmuCrawler, error) {
-	ddc := DouyuDanmuCrawler{
+func NewDouyuDanmuCrawler(ctx context.Context, roomId string) (*DouyuDanmuCrawler, error) {
+	ddc := &DouyuDanmuCrawler{
 		RoomId: roomId,
 	}
 	return ddc, nil
@@ -114,7 +115,9 @@ func (ddc *DouyuDanmuCrawler) read(ctx context.Context) error {
 			return oops.Wrapf(err, "TcpReadFixedSize")
 		}
 		//log.Println("ID:" + string(ddc.Id()) + ":" + string(messageBuffer))
-		ddc.messageParser(string(messageBuffer))
+		if err := ddc.messageParser(ctx, string(messageBuffer)); err != nil {
+			log.Printf("Warning: messageParser fails: %s\n", err.Error())
+		}
 	}
 }
 
@@ -126,7 +129,8 @@ func (ddc *DouyuDanmuCrawler) close() {
 }
 
 // Run implement interface Crawler
-func (ddc DouyuDanmuCrawler) Run(ctx context.Context) error {
+func (ddc *DouyuDanmuCrawler) Run(ctx context.Context) error {
+	log.Printf("Start crawler %s\n", ddc.RoomId)
 	defer ddc.close()
 
 	if err := ddc.init(); err != nil {
@@ -148,6 +152,11 @@ func (ddc DouyuDanmuCrawler) Run(ctx context.Context) error {
 }
 
 // Id implement inferface Crawler
-func (ddc DouyuDanmuCrawler) Id() CrawlerId {
+func (ddc *DouyuDanmuCrawler) Id() CrawlerId {
 	return CrawlerId("Douyu_" + ddc.RoomId)
+}
+
+// SetModel implements interface Crawler
+func (ddc *DouyuDanmuCrawler) SetModel(model *messageModel) {
+	ddc.model = model
 }

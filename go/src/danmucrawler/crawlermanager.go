@@ -16,6 +16,7 @@ type CrawlerId string
 type Crawler interface {
 	Run(ctx context.Context) error
 	Id() CrawlerId
+	SetModel(*messageModel)
 }
 
 type crawlerManager struct {
@@ -26,14 +27,22 @@ type crawlerManager struct {
 
 	// This channel holds non-started crawlers, include the retry crawlers
 	waitForRunChan chan Crawler
+
+	model *messageModel
 }
 
-func NewCrawlerManager(ctx context.Context) *crawlerManager {
+// NewCrawlerManager creates a new CrawlerManager.
+func NewCrawlerManager(ctx context.Context) (*crawlerManager, error) {
+	model, err := newMessageModel(ctx)
+	if err != nil {
+		return nil, oops.Wrapf(err, "NewMessageModel")
+	}
 	return &crawlerManager{
 		crawlerMap:     make(map[CrawlerId]Crawler, defualtManagerCapacity),
 		capacity:       defualtManagerCapacity,
 		waitForRunChan: make(chan Crawler, defualtManagerCapacity),
-	}
+		model:          model,
+	}, nil
 }
 
 func (cm *crawlerManager) Register(ctx context.Context, c Crawler) error {
@@ -46,6 +55,7 @@ func (cm *crawlerManager) Register(ctx context.Context, c Crawler) error {
 	}
 	cm.crawlerMap[id] = c
 	cm.waitForRunChan <- c
+	c.SetModel(cm.model)
 	return nil
 }
 

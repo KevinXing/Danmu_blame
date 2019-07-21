@@ -38,3 +38,7 @@ func TcpReadFixedSize(ctx context.Context, conn net.Conn, m int, timeout time.Du
 		return messageBuffer.Bytes(), oops.Wrapf(err, "read")
 	}
 }
+
+func TimeToMs(t time.Time) int64 {
+	return t.UnixNano() / 1e6
+}

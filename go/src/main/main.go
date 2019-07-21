@@ -9,12 +9,15 @@ import (
 func main() {
 	ctx := context.Background()
 
-	crawlerManager := danmucrawler.NewCrawlerManager(ctx)
-	testCrawler1, err := danmucrawler.NewDouyuDanmuCrawler("9999")
+	crawlerManager, err := danmucrawler.NewCrawlerManager(ctx)
 	if err != nil {
 		panic(err)
 	}
-	testCrawler2, err := danmucrawler.NewDouyuDanmuCrawler("5650069")
+	testCrawler1, err := danmucrawler.NewDouyuDanmuCrawler(ctx, "60937")
+	if err != nil {
+		panic(err)
+	}
+	testCrawler2, err := danmucrawler.NewDouyuDanmuCrawler(ctx, "5650069")
 	if err != nil {
 		panic(err)
 	}
