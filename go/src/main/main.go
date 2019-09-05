@@ -2,8 +2,9 @@ package main
 
 import (
 	"context"
-	"danmucrawler"
 	"log"
+
+	"github.com/KevinXing/Danmu_blame/go/src/danmucrawler"
 )
 
 func main() {
