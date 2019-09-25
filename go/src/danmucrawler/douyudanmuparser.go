@@ -3,11 +3,11 @@ package danmucrawler
 import (
 	"context"
 	"fmt"
-	"helpers"
 	"log"
 	"strings"
 	"time"
 
+	"github.com/KevinXing/Danmu_blame/go/src/helpers"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/samsarahq/go/oops"
